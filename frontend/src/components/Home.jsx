@@ -1,19 +1,16 @@
 import { useState, useEffect } from 'react'
-import Carousel from './carousel';
-import ProductCard from './productCard';
-import SaleCards from './saleCards';
-import Footer from './footer';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import SideMenu from './SideMenu'
+
 
 function Home() {
-    const [products, setProducts] = useState([]);
-    const getProducts = async () => {
+    const [profiles, setProfiles] = useState([]);
+    const getProfiles = async () => {
 
-        await axios.get('http://localhost:3000/products/getProducts', { withCredentials: true })
+        await axios.get('http://localhost:3000/profile/getprofile')
             .then((res) => {
                 console.log(res)
-                setProducts(res.data.response);
+                setProfiles(res.data.response);
             })
             .catch((err) => {
                 console.log(err)
@@ -21,31 +18,12 @@ function Home() {
     }
 
     useEffect(() => {
-        getProducts();
-        console.log("products", products)
-    }, [])
+        getProfiles();
+        console.log("profiles", profiles)
+    }, [profiles])
     return (
         <div className='h-screen w-screen '>
-            <Carousel />
-            <div>
-                <div className='px-10 mt-5'>
-                    <p className='text-4xl text-black font-bold my-10'>Featured Products</p>
-                    <div className='flex justify-between flex-wrap'>
-                        {products?.map((value, index) => {
-                            return <div key={index} onClick={() => { return <Link to={{ pathname: "productInfo", state: value }} /> }} className='hover:cursor-pointer hover:scale-105'>
-                                <ProductCard data={value} />
-                            </div>
-                        })}
-                    </div>
-                </div>
-                <div className='w-full [h-20%]'>
-                    <SaleCards />
-                </div>
-            </div>
-            <hr />
-            <div>
-                <Footer />
-            </div>
+            <SideMenu />
         </div>
     )
 }
