@@ -17,6 +17,7 @@ const createProfileSchema = joi.object().keys({
 
 
 const updateProfileSchema = joi.object().keys({
+    profileId: joi.string().required(),
     companyName: joi.string(),
     companyLogo: joi.string(),
     description: joi.string(),
@@ -68,7 +69,7 @@ module.exports = {
         try {
 
             // console.log("getRole Controller")
-            const getProfiles = await ProfileService.getProfiles();
+            const getProfiles = await profileService.getProfiles();
             console.log("getProfiles", getProfiles);
 
             if (getProfiles.error) {
@@ -92,7 +93,8 @@ module.exports = {
     updateProfile: async (req, res) => {
         try {
             const validate = await updateProfileSchema.validateAsync(req.body);
-            const updateProfile = await ProfileService.updateProfile(validate)
+            const updateProfile = await profileService.updateProfile(validate)
+            console.log("updateProfile", updateProfile)
             if (updateProfile.error) {
                 res.send({
                     error: updateProfile.error
@@ -113,7 +115,8 @@ module.exports = {
     deleteProfile: async (req, res) => {
         try {
             const validate = await deleteProfileSchema.validateAsync(req.query);
-            const deleteProfile = await ProfileService.deleteProfile(validate);
+            const deleteProfile = await profileService.deleteProfile(validate);
+            console.log("deleteProfile", deleteProfile)
 
             if (deleteProfile.error) {
                 res.send({

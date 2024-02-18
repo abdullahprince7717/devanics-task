@@ -17,7 +17,7 @@ module.exports = {
             }
         }
     },
-    getProfile: async () => {
+    getProfiles: async () => {
         try {
             const getProfiles = await models.Profile.findAll();
             return {
@@ -33,12 +33,10 @@ module.exports = {
     updateProfile: async (body) => {
         try {
             const updateProfile = await models.Profile.update({
-                ProfileName: body.ProfileName,
-                ProfileDescription: body.ProfileDescription,
-                ProfileImage: body.ProfileImage
+                ...body
             }, {
                 where: {
-                    ProfileId: body.ProfileId
+                    profileId: body.profileId
                 }
             });
             return {
@@ -55,7 +53,7 @@ module.exports = {
         try {
             const deleteProfile = await models.Profile.destroy({
                 where: {
-                    ProfileId: query.ProfileId
+                    profileId: query.profileId
                 }
             });
             return {

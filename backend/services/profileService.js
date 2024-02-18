@@ -1,11 +1,12 @@
-const ProfileModel = require('../models/profileModel');
+const profileModel = require('../models/profileModel');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     createProfile: async (body) => {
         try {
             const profileId = uuidv4();
-            const createProfile = await ProfileModel.createProfile(...body, profileId);
+            const createProfile = await profileModel.createProfile({ ...body, profileId });
+            console.log("createProfile", createProfile)
             if (createProfile.error) {
                 return {
                     error: createProfile.error
@@ -26,7 +27,7 @@ module.exports = {
     getProfiles: async () => {
         try {
             // console.log("getRole Service")
-            const getProfiles = await ProfileModel.getProfiles();
+            const getProfiles = await profileModel.getProfiles();
             // console.log(getRoles);
             if (getProfiles.error) {
                 return {
@@ -48,7 +49,7 @@ module.exports = {
     },
     updateProfile: async (body) => {
         try {
-            const updateProfile = await ProfileModel.updateProfile(body);
+            const updateProfile = await profileModel.updateProfile(body);
             return {
                 response: updateProfile
             };
@@ -61,8 +62,7 @@ module.exports = {
     },
     deleteProfile: async (query) => {
         try {
-            // check if role exists or not! then delete it!
-            const deleteProfile = await ProfileModel.deleteProfile(query);
+            const deleteProfile = await profileModel.deleteProfile(query);
             return {
                 response: deleteProfile
             };

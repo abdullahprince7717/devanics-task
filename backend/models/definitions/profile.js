@@ -14,43 +14,43 @@ Profile.init(
             allowNull: false,
         },
         companyName: {
-            type: DataTypes.STRING(34),
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         description: {
-            type: DataTypes.STRING(90),
+            type: DataTypes.STRING(255),
             allowNull: true,
         },
         website: {
-            type: DataTypes.STRING(90),
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         numberOfHires: {
-            type: DataTypes.STRING(34),
+            type: DataTypes.BIGINT(),
             allowNull: false,
         },
         address: {
-            type: DataTypes.STRING(34),
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         phone: {
-            type: DataTypes.INTEGER(),
+            type: DataTypes.BIGINT(),
             allowNull: false,
         },
         city: {
-            type: DataTypes.STRING(34),
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         country: {
-            type: DataTypes.STRING(34),
+            type: DataTypes.STRING(255),
             allowNull: false,
         },
         zip: {
-            type: DataTypes.INTEGER(),
+            type: DataTypes.BIGINT(),
             allowNull: false,
         },
         vatNumber: {
-            type: DataTypes.INTEGER(),
+            type: DataTypes.BIGINT(),
             allowNull: false,
         },
     }, {
