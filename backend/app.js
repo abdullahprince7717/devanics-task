@@ -1,6 +1,9 @@
 var createError = require('http-errors');
 var express = require('express');
 var logger = require('morgan');
+var cors = require('cors')
+// var cookieParser = require('cookie-parser');
+// app.use(cookieParser());
 
 var profileRouter = require('./routes/profileRouter');
 
@@ -11,7 +14,16 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(cors(
+  {
+    origin: true,
+    credentials: true
+  }
+))
+
 app.use('/profile', profileRouter)
+
+
 
 
 // catch 404 and forward to error handler
