@@ -7,7 +7,7 @@ import { FaSuitcase } from "react-icons/fa6";
 
 function SideMenu() {
     return (
-        <div className="h-screen w-1/6 flex flex-col justify-between bg-[#142D52]">
+        <div className="h-[200%] w-1/6 flex flex-col justify-between bg-[#142D52] ">
             <div className="flex flex-col">
                 <div className="w-1/2 mx-auto my-6">
                     <img src={logo} alt="LOGO" />
