@@ -129,8 +129,7 @@ function ProfilesList(props) {
                                             <MdDeleteOutline />
                                         </a>
                                         <a
-                                            // onClick={() => { props.updateHandler(profile) }}
-                                            // onClick={() => { props.changeHandler('My Profile', profile) }}
+                                            onClick={() => { props.changeHandler('My Profile', profile) }}
                                             className="text-2xl text-black  hover:underline"
                                         >
                                             <FaRegEdit />

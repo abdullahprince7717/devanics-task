@@ -8,7 +8,7 @@ function CreateProfile(props) {
     console.log("PROPS", props?.profileInfo)
     const [profileInfo, setProfileInfo] = useState({
         companyName: props?.profileInfo?.companyName || "",
-        companyLogo: props?.profileInfo?.companyLogo || "",
+        companyLogo: "",
         description: props?.profileInfo?.description || "",
         website: props?.profileInfo?.website || "",
         address: props?.profileInfo?.address || "",
@@ -50,7 +50,7 @@ function CreateProfile(props) {
         await axios.post('http://localhost:3000/profile/createprofile', profileInfo)
             .then((res) => {
                 console.log(res)
-                { res?.data.error ? alert(res?.data.error?.details[0].message) : alert("profile created") }
+                { res?.data.error ? alert(res?.data.error?.details[0]?.message) : alert("profile created") }
                 setProfileInfo({
                     companyName: "",
                     companyLogo: "",
@@ -73,10 +73,11 @@ function CreateProfile(props) {
     }
 
     const updateProfile = async () => {
-        await axios.post('http://localhost:3000/profile/updateprofile', profileInfo)
+        const updatedProfile = { ...profileInfo, profileId: props?.profileInfo?.profileId }
+        await axios.post('http://localhost:3000/profile/updateprofile', updatedProfile)
             .then((res) => {
                 console.log("updated res ", res)
-                alert(res?.data.error.details[0].message)
+                alert(res?.data?.error?.details[0]?.message)
                 setProfileInfo({
                     profileId: "",
                     companyName: "",
@@ -132,7 +133,7 @@ function CreateProfile(props) {
                         <input value={profileInfo.vatNumber} onChange={(e) => handleInputChange('vatNumber', e.target.value)} className="w-96 text-sm border border-gray-300 rounded-md  placeholder-[#9B9B9B] focus:outline-none p-3 m-1 shadow-sm mb-6" placeholder='VAT Number' type="number" />
                     </div>
                 </div>
-                <textarea onChange={(e) => handleInputChange('description', e.target.value)} className="w-full text-sm border border-gray-300 rounded-md  placeholder-[#9B9B9B] focus:outline-none p-3 m-1 shadow-sm mb-6" placeholder='Write Description here' type="" />
+                <textarea value={profileInfo.description} onChange={(e) => handleInputChange('description', e.target.value)} className="w-full text-sm border border-gray-300 rounded-md  placeholder-[#9B9B9B] focus:outline-none p-3 m-1 shadow-sm mb-6" placeholder='Write Description here' type="" />
 
                 <div className='flex text-[#7C7C7C] text-sm ml-2'>
                     <input className='mr-3 ' type="checkbox" />

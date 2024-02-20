@@ -4,12 +4,10 @@ import CreateProfile from './CreateProfile';
 import ProfilesList from './ProfilesList';
 import Header from './Header';
 import Footer from './Footer';
-import UpdateProfile from './UpdateProfile';
 
 
 function Home() {
     const [currentComponent, setCurrentComponen] = useState('Profiles');
-    const [updateComponent, setUpdateComponent] = useState(false);
     const [profileInfo, setProfileInfo] = useState({});
 
     const changeHandler = (component, info) => {
@@ -20,14 +18,6 @@ function Home() {
 
     }
 
-    // const updateHandler = (info) => {
-    //     console.log("updaate handler")
-    //     console.log("info", info)
-    //     setProfileInfo(info)
-    //     setUpdateComponent(!updateComponent)
-
-    // }
-
     return (
         <div className='h-auto flex '>
             <SideMenu changeHandler={changeHandler} />
@@ -35,7 +25,6 @@ function Home() {
                 <div>
                     <Header currentComponent={currentComponent} />
                     {currentComponent == 'My Profile' ? <CreateProfile profileInfo={profileInfo} changeHandler={changeHandler} /> : <ProfilesList changeHandler={changeHandler} />}
-                    {/* {updateComponent ? currentComponent == 'Profiles' ? <ProfilesList updateHandler={updateHandler} changeHandler={changeHandler} /> : <CreateProfile /> : <UpdateProfile updateHandler={updateHandler} profileInfo={profileInfo} />} */}
                 </div>
                 <div className="h-[1px] w-full mt-8 bg-slate-500" />
                 <Footer />
