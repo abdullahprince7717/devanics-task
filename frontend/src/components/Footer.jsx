@@ -28,7 +28,7 @@ function footer() {
                 </div>
             </div>
             <div className="w-80 flex flex-col space-y-2">
-                <div className='w-full flex justify-between px-5 pb-3'>
+                <div className='w-full flex justify-between px-5 pb-3 text-[#06BF97]'>
                     <FaInstagram size={28} />
                     <FaTwitter size={28} />
                     <FaFacebook size={28} />

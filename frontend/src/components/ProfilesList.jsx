@@ -58,6 +58,20 @@ function ProfilesList(props) {
         }
     };
 
+    const setUnArchive = (profileId) => {
+        const profileIndex = profiles.findIndex((profile) => profile.profileId === profileId);
+
+        if (profileIndex !== -1) {
+            const updatedProfiles = [...profiles];
+
+            updatedProfiles[profileIndex] = {
+                ...updatedProfiles[profileIndex],
+                isArchived: false,
+            };
+            setProfiles(updatedProfiles);
+        }
+    };
+
     useEffect(() => {
         getProfiles();
         console.log("profiles", profiles)
@@ -141,65 +155,70 @@ function ProfilesList(props) {
                     </table>
                 </div>)
                 : (<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table className="w-full text-sm text-left rtl:text-right  ">
-                        <thead className="text-xs">
-                            <tr>
-                                <th scope="col" className="px-6 py-3">
-                                    ID
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Name
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    No of Hires/year
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    City
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Website
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {profiles?.filter((profile) => profile?.isArchived).map((profile) => (
-                                <tr
-                                    key={profile?.profileId}
-                                    className="odd:bg-[#F4F8FB]  even:bg-white "
-                                >
-                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                        {profile?.profileId}
-                                    </td>
-                                    <td className="px-6 py-4">{profile?.companyName}</td>
-                                    <td className="px-12 py-4">{profile?.numberOfHires}</td>
-                                    <td className="px-6 py-4">{profile?.city}</td>
-                                    <td className="px-6 py-4">{profile?.website}</td>
-                                    <td className="px-6 py-4 flex">
-                                        <a
-                                            onClick={() => { setArchive(profile?.profileId) }}
-                                            className="text-2xl text-[#06BF97]  hover:underline"
-                                        >
-                                            <IoArchiveOutline />
-                                        </a>
-                                        <a
-                                            onClick={() => { deleteProfile(profile?.profileId) }}
-                                            className="text-[25px] text-[#EB5757]  hover:underline"
-                                        >
-                                            <MdDeleteOutline />
-                                        </a>
-                                        <a
-                                            className="text-2xl text-black  hover:underline"
-                                        >
-                                            <FaRegEdit />
-                                        </a>
-                                    </td>
+                    {profiles && profiles.filter((profile) => profile.isArchived).length > 0 ? (
+                        <table className="w-full text-sm text-left rtl:text-right  ">
+                            <thead className="text-xs">
+                                <tr>
+                                    <th scope="col" className="px-6 py-3">
+                                        ID
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
+                                        Name
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
+                                        No of Hires/year
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
+                                        City
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
+                                        Website
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
+                                        Actions
+                                    </th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {profiles?.filter((profile) => profile?.isArchived).map((profile) => (
+                                    <tr
+                                        key={profile?.profileId}
+                                        className="odd:bg-[#F4F8FB]  even:bg-white "
+                                    >
+                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                            {profile?.profileId}
+                                        </td>
+                                        <td className="px-6 py-4">{profile?.companyName}</td>
+                                        <td className="px-12 py-4">{profile?.numberOfHires}</td>
+                                        <td className="px-6 py-4">{profile?.city}</td>
+                                        <td className="px-6 py-4">{profile?.website}</td>
+                                        <td className="px-6 py-4 flex">
+                                            <a
+                                                onClick={() => { setUnArchive(profile?.profileId) }}
+                                                className="text-2xl text-[#06BF97]  hover:underline"
+                                            >
+                                                <IoArchiveOutline />
+                                            </a>
+                                            <a
+                                                onClick={() => { deleteProfile(profile?.profileId) }}
+                                                className="text-[25px] text-[#EB5757]  hover:underline"
+                                            >
+                                                <MdDeleteOutline />
+                                            </a>
+                                            <a
+                                                onClick={() => { props.changeHandler('My Profile', profile) }}
+                                                className="text-2xl text-black  hover:underline"
+                                            >
+                                                <FaRegEdit />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className="text-center text-gray-500 mt-8">No archived data</div>
+                    )}
                 </div>)
             }
 
