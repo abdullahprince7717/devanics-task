@@ -18,11 +18,10 @@ function Home() {
             <SideMenu changeHandler={changeHandler} />
             <div className=' w-5/6 flex flex-col py-10 px-12 bg-[#F6F8FA] justify-between'>
                 <div>
-                    <Header />
+                    <Header currentComponent={currentComponent} />
                     {currentComponent == 'My Profile' ? <CreateProfile /> : <ProfilesList />}
-                    {/* <CreateProfile /> */}
-
                 </div>
+                <div className="h-[1px] w-full mt-8 bg-slate-500" />
                 <Footer />
             </div>
         </div>

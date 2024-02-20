@@ -5,7 +5,7 @@ import { IoIosSend } from "react-icons/io";
 
 function footer() {
     return (
-        <div className="flex justify-around text-[#827F7F] mt-24">
+        <div className="flex justify-around text-[#827F7F] mt-14">
             <div className="w-48 flex flex-col my-3">
                 <div className='flex flex-col justify-around mt-5 space-y-4'>
                     <a href="" className="">Services</a>
