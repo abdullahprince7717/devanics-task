@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 import { IoArchiveOutline } from "react-icons/io5";
 import { MdDeleteOutline, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
@@ -5,7 +6,7 @@ import { MdDeleteOutline, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "reac
 import { FaRegEdit } from "react-icons/fa";
 import axios from 'axios';
 
-function ProfilesList() {
+function ProfilesList(props) {
 
     const [isTab, setIsTab] = useState('active');
     const [profiles, setProfiles] = useState([]);
@@ -128,6 +129,8 @@ function ProfilesList() {
                                             <MdDeleteOutline />
                                         </a>
                                         <a
+                                            // onClick={() => { props.updateHandler(profile) }}
+                                            // onClick={() => { props.changeHandler('My Profile', profile) }}
                                             className="text-2xl text-black  hover:underline"
                                         >
                                             <FaRegEdit />
