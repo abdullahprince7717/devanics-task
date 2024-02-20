@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import logo from "../assets/public/logo.png"
 import { FaTasks } from "react-icons/fa";
 import { IoIosCard } from "react-icons/io";
@@ -5,9 +6,9 @@ import { IoPerson } from "react-icons/io5";
 import { MdGroups } from "react-icons/md";
 import { FaSuitcase } from "react-icons/fa6";
 
-function SideMenu() {
+function SideMenu(props) {
     return (
-        <div className="h-[200%] w-1/6 flex flex-col justify-between bg-[#142D52] ">
+        <div className="w-1/6 flex flex-col justify-between bg-[#142D52] ">
             <div className="flex flex-col">
                 <div className="w-1/2 mx-auto my-6">
                     <img src={logo} alt="LOGO" />
@@ -24,15 +25,15 @@ function SideMenu() {
                     </div>
                     <div className="flex items-center my-4">
                         <IoPerson />
-                        <span className="ml-4">Profile</span>
+                        <span className="ml-4">Contacts</span>
                     </div>
                     <div className="flex items-center my-4">
                         <MdGroups />
-                        <span className="ml-4">Teams</span>
+                        <span onClick={() => { props.changeHandler('My Profile') }} className="ml-4 cursor-pointer">My Profile</span>
                     </div>
                     <div className="flex items-center my-4">
                         <FaSuitcase />
-                        <span className="ml-4">Jobs</span>
+                        <span onClick={() => { props.changeHandler('Profiles') }} className="ml-4 cursor-pointer">Profiles</span>
                     </div>
                 </div>
                 <div className="h-[1px] w-4/5 mx-auto mt-8 mb-4 bg-[#06BF97]" />

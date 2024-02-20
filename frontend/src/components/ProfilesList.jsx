@@ -68,75 +68,80 @@ function ProfilesList() {
             <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-400 bg-hero bg-cover">
                 <ul className="flex flex-wrap -mb-px">
                     <li className="me-2">
-                        <a onClick={changeTab} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg  hover:border-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52]">Active</a>
+                        <a onClick={changeTab} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg cursor-pointer hover:border-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52]">Active</a>
                     </li>
                     <li className="me-2">
-                        <a onClick={changeTab} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg  hover:border-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52] ">Archive</a>
+                        <a onClick={changeTab} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg cursor-pointer hover:border-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52] ">Archive</a>
                     </li>
                 </ul>
             </div>
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left rtl:text-right  ">
-                    <thead className="text-xs">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">
-                                ID
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Name
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                No of Hires/year
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                City
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Website
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {profiles?.filter((profile) => !profile?.isArchived).map((profile) => (
-                            <tr
-                                key={profile?.id}
-                                className="odd:bg-[#F4F8FB]  even:bg-white "
-                            >
-                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {profile?.id}
-                                </td>
-                                <td className="px-6 py-4">{profile?.companyName}</td>
-                                <td className="px-12 py-4">{profile?.numberOfHires}</td>
-                                <td className="px-6 py-4">{profile?.city}</td>
-                                <td className="px-6 py-4">{profile?.website}</td>
-                                <td className="px-6 py-4 flex">
-                                    <a
-                                        href="#"
-                                        className="text-2xl text-[#06BF97]  hover:underline"
-                                    >
-                                        <IoArchiveOutline />
-                                    </a>
-                                    <a
-                                        onClick={() => { deleteProfile(profile?.profileId) }}
-                                        className="text-[25px] text-[#EB5757]  hover:underline"
-                                    >
-                                        <MdDeleteOutline />
-                                    </a>
-                                    <a
-                                        onClick={() => { setArchive(profile?.profileId) }}
-                                        className="text-2xl text-black  hover:underline"
-                                    >
-                                        <FaRegEdit />
-                                    </a>
-                                </td>
+
+            {isTab == 'active' ?
+                (<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table className="w-full text-sm text-left rtl:text-right  ">
+                        <thead className="text-xs">
+                            <tr>
+                                <th scope="col" className="px-6 py-3">
+                                    ID
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Name
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    No of Hires/year
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    City
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Website
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Actions
+                                </th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            {profiles?.filter((profile) => !profile?.isArchived).map((profile) => (
+                                <tr
+                                    key={profile?.id}
+                                    className="odd:bg-[#F4F8FB]  even:bg-white "
+                                >
+                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {profile?.id}
+                                    </td>
+                                    <td className="px-6 py-4">{profile?.companyName}</td>
+                                    <td className="px-12 py-4">{profile?.numberOfHires}</td>
+                                    <td className="px-6 py-4">{profile?.city}</td>
+                                    <td className="px-6 py-4">{profile?.website}</td>
+                                    <td className="px-6 py-4 flex">
+                                        <a
+                                            href="#"
+                                            className="text-2xl text-[#06BF97]  hover:underline"
+                                        >
+                                            <IoArchiveOutline />
+                                        </a>
+                                        <a
+                                            onClick={() => { deleteProfile(profile?.profileId) }}
+                                            className="text-[25px] text-[#EB5757]  hover:underline"
+                                        >
+                                            <MdDeleteOutline />
+                                        </a>
+                                        <a
+                                            onClick={() => { setArchive(profile?.profileId) }}
+                                            className="text-2xl text-black  hover:underline"
+                                        >
+                                            <FaRegEdit />
+                                        </a>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>)
+                : (<div className="relative overflow-x-auto shadow-md sm:rounded-lg"></div>)
+            }
+
             <div className='flex justify-end px-5 pt-5'>
                 <div className="flex justify-center items-center space-x-4">
                     <MdKeyboardArrowLeft size={24} className="text-slate-500" />
