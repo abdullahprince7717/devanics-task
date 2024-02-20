@@ -12,8 +12,8 @@ function ProfilesList() {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(5);
 
-    const changeTab = () => {
-        isTab == 'active' ? setIsTab('archive') : setIsTab('active');
+    const changeTab = (currentTab) => {
+        setIsTab(currentTab)
     }
     const getProfiles = async () => {
 
@@ -68,10 +68,10 @@ function ProfilesList() {
             <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-400 bg-hero bg-cover">
                 <ul className="flex flex-wrap -mb-px">
                     <li className="me-2">
-                        <a onClick={changeTab} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg cursor-pointer hover:border-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52]">Active</a>
+                        <a onClick={() => changeTab('active')} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg cursor-pointer hover:border-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52]">Active</a>
                     </li>
                     <li className="me-2">
-                        <a onClick={changeTab} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg cursor-pointer hover:border-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52] ">Archive</a>
+                        <a onClick={() => changeTab('archive')} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg cursor-pointer hover:border-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52] ">Archive</a>
                     </li>
                 </ul>
             </div>
@@ -104,11 +104,11 @@ function ProfilesList() {
                         <tbody>
                             {profiles?.filter((profile) => !profile?.isArchived).map((profile) => (
                                 <tr
-                                    key={profile?.id}
+                                    key={profile?.profileId}
                                     className="odd:bg-[#F4F8FB]  even:bg-white "
                                 >
-                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {profile?.id}
+                                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                        {profile?.profileId}
                                     </td>
                                     <td className="px-6 py-4">{profile?.companyName}</td>
                                     <td className="px-12 py-4">{profile?.numberOfHires}</td>
@@ -139,7 +139,7 @@ function ProfilesList() {
                         </tbody>
                     </table>
                 </div>)
-                : (<div className="relative overflow-x-auto shadow-md sm:rounded-lg"></div>)
+                : (<div className="flex justify-center items-center">No archived Data</div>)
             }
 
             <div className='flex justify-end px-5 pt-5'>
