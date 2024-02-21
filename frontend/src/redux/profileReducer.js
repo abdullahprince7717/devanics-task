@@ -17,7 +17,7 @@ const profileReducer = (state = INITIAL_STATE, action) => {
         const updatedArchivedProfiles = [...state.archivedProfiles, action.payload.profile];
 
         return {
-            profiles: activeProfiles,
+            activeProfiles: activeProfiles,
             archivedProfiles: updatedArchivedProfiles
         }
 
@@ -28,7 +28,7 @@ const profileReducer = (state = INITIAL_STATE, action) => {
         const updatedProfiles = action.payload.profiles;
 
         return {
-            profiles: updatedProfiles,
+            activeProfiles: updatedProfiles,
             archivedProfiles: updatedArchivedProfiles
         };
     }
@@ -36,7 +36,7 @@ const profileReducer = (state = INITIAL_STATE, action) => {
     else if (action.type === 'SET_INITIAL_PROFILES') {
         return {
             ...state,
-            profiles: action.payload.profiles
+            activeProfiles: action.payload.profiles
         };
     }
 
