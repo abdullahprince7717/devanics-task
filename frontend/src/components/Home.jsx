@@ -5,7 +5,6 @@ import ProfilesList from './ProfilesList';
 import Header from './Header';
 import Footer from './Footer';
 
-
 function Home() {
     const [currentComponent, setCurrentComponen] = useState('Profiles');
     const [profileInfo, setProfileInfo] = useState({});
@@ -13,11 +12,7 @@ function Home() {
     const changeHandler = (component, info) => {
         setCurrentComponen(component)
         setProfileInfo(info)
-        console.log("changeHandler")
-        console.log("info", info)
-
     }
-
     return (
         <div className='h-auto flex '>
             <SideMenu changeHandler={changeHandler} />

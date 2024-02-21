@@ -2,8 +2,9 @@
 import { useState, useEffect } from 'react'
 import { IoArchiveOutline } from "react-icons/io5";
 import { MdDeleteOutline, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-
 import { FaRegEdit } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux"
+import { archiveProfile, unArchiveProfile, setInitialProfiles } from "../redux/profileActions"
 import axios from 'axios';
 
 function ProfilesList(props) {
@@ -12,6 +13,16 @@ function ProfilesList(props) {
     const [profiles, setProfiles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(5);
+
+    const dispatch = useDispatch();
+
+    const archivedProfiles = useSelector((state) => {
+        return state.archivedProfiles;
+    })
+
+    const activeProfiles = useSelector((state) => {
+        return state.profiles;
+    })
 
     const changeTab = (currentTab) => {
         setIsTab(currentTab)
@@ -26,7 +37,9 @@ function ProfilesList(props) {
                     isArchived: false,
                 }));
                 setProfiles([...profilesWithIsArchived]);
-                // setProfiles([{ ...res.data.response, isArchived: false }]);
+                dispatch(setInitialProfiles(profilesWithIsArchived));
+                dispatch(unArchiveProfile(profilesWithIsArchived));
+
             })
             .catch((err) => {
                 console.log(err)
@@ -55,7 +68,10 @@ function ProfilesList(props) {
                 isArchived: true,
             };
             setProfiles(updatedProfiles);
+            dispatch(archiveProfile(updatedProfiles));
         }
+        console.log("archivedProfiles", archivedProfiles)
+        console.log("activeProfiles", activeProfiles)
     };
 
     const setUnArchive = (profileId) => {
@@ -69,6 +85,7 @@ function ProfilesList(props) {
                 isArchived: false,
             };
             setProfiles(updatedProfiles);
+            dispatch(unArchiveProfile(profileId));
         }
     };
 
@@ -79,16 +96,20 @@ function ProfilesList(props) {
 
 
     return (
-        <div className='flex flex-col bg-white py-10'>
-            <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-400 bg-hero bg-cover">
+        <div className='flex flex-col bg-white py-5'>
+            <div className="flex justify-between text-sm font-medium text-center text-gray-500 border-b border-gray-400 bg-hero bg-cover">
                 <ul className="flex flex-wrap -mb-px">
                     <li className="me-2">
-                        <a onClick={() => changeTab('active')} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg cursor-pointer hover:border-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52]">Active</a>
+                        <a onClick={() => changeTab('active')} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg cursor-pointer hover:border-[#142D52] hover:text-[#142D52]  focus:text-[#142D52] focus:font-bold focus:border-[#142D52]">Active</a>
                     </li>
                     <li className="me-2">
-                        <a onClick={() => changeTab('archive')} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg cursor-pointer hover:border-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52] ">Archive</a>
+                        <a onClick={() => changeTab('archive')} className="inline-block p-4 border-b-2 border-transparent rounded-t-lg cursor-pointer hover:border-[#142D52] hover:text-[#142D52] focus:text-[#142D52] focus:font-bold focus:border-[#142D52] ">Archive</a>
                     </li>
                 </ul>
+
+                <button onClick={() => { props?.changeHandler('My Profile', {}) }} className="text-white text-xs font-semibold rounded-sm py-1 px-14 mr-7 mb-2 mt-1 bg-[#06BF97]">
+                    Create Profile
+                </button>
             </div>
 
             {isTab == 'active' ?
@@ -96,7 +117,7 @@ function ProfilesList(props) {
                     <table className="w-full text-sm text-left rtl:text-right  ">
                         <thead className="text-xs">
                             <tr>
-                                <th scope="col" className="px-6 py-3">
+                                <th onClick={setArchive} scope="col" className="px-6 py-3">
                                     ID
                                 </th>
                                 <th scope="col" className="px-6 py-3">
@@ -117,6 +138,7 @@ function ProfilesList(props) {
                             </tr>
                         </thead>
                         <tbody>
+                            {/* {activeProfiles?.map((profile) => ( */}
                             {profiles?.filter((profile) => !profile?.isArchived).map((profile) => (
                                 <tr
                                     key={profile?.profileId}
@@ -155,6 +177,7 @@ function ProfilesList(props) {
                     </table>
                 </div>)
                 : (<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    {/* {archivedProfiles?.length > 0 ? ( */}
                     {profiles && profiles.filter((profile) => profile.isArchived).length > 0 ? (
                         <table className="w-full text-sm text-left rtl:text-right  ">
                             <thead className="text-xs">
@@ -180,6 +203,7 @@ function ProfilesList(props) {
                                 </tr>
                             </thead>
                             <tbody>
+                                {/* {archivedProfiles?.map((profile) => ( */}
                                 {profiles?.filter((profile) => profile?.isArchived).map((profile) => (
                                     <tr
                                         key={profile?.profileId}
