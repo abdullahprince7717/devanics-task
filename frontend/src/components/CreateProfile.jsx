@@ -5,7 +5,6 @@ import img from "../assets/public/person.jpeg"
 
 
 function CreateProfile(props) {
-    console.log("PROPS", props?.profileInfo)
     const [profileInfo, setProfileInfo] = useState({
         companyName: props?.profileInfo?.companyName || "",
         companyLogo: "",
@@ -49,7 +48,6 @@ function CreateProfile(props) {
     const createProfile = async () => {
         await axios.post('http://localhost:3000/profile/createprofile', profileInfo)
             .then((res) => {
-                console.log(res)
                 { res?.data.error ? alert(res?.data.error?.details[0]?.message) : alert("profile created") }
                 setProfileInfo({
                     companyName: "",
@@ -76,7 +74,6 @@ function CreateProfile(props) {
         const updatedProfile = { ...profileInfo, profileId: props?.profileInfo?.profileId }
         await axios.post('http://localhost:3000/profile/updateprofile', updatedProfile)
             .then((res) => {
-                console.log("updated res ", res)
                 alert(res?.data?.error?.details[0]?.message)
                 setProfileInfo({
                     profileId: "",

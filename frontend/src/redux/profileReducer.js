@@ -7,8 +7,6 @@ const INITIAL_STATE = {
 }
 
 const profileReducer = (state = INITIAL_STATE, action) => {
-    console.log(action);
-    console.log(state);
 
     if (action.type === 'ARCHIVE_PROFILE') {
         const activeProfiles = state.activeProfiles.filter(

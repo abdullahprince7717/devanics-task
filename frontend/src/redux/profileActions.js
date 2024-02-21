@@ -18,7 +18,6 @@ const archiveProfile = (profiles) => {
 };
 
 const unArchiveProfile = (profiles) => {
-    console.log("profiles innaction", profiles)
     return {
         type: ACTIVE_PROFILE,
         payload: profiles
