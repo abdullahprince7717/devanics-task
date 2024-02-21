@@ -24,11 +24,10 @@ module.exports = {
             }
         }
     },
-    getProfiles: async () => {
+    getProfiles: async (query) => {
         try {
-            // console.log("getRole Service")
-            const getProfiles = await profileModel.getProfiles();
-            // console.log(getRoles);
+            const offset = (query.pageNo - 1) * query.limit;
+            const getProfiles = await profileModel.getProfiles(offset, query);
             if (getProfiles.error) {
                 return {
                     error: getProfiles.error

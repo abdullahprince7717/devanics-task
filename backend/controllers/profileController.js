@@ -35,6 +35,12 @@ const deleteProfileSchema = joi.object().keys({
     profileId: joi.string().required()
 })
 
+const paginationSchema = joi.object().keys({
+    pageNo: joi.number().positive().greater(0).required(),
+    limit: joi.number().valid(),
+})
+
+
 module.exports = {
     createProfile: async (req, res) => {
         try {
@@ -68,8 +74,8 @@ module.exports = {
         console.log("req", req);
         try {
 
-            // console.log("getRole Controller")
-            const getProfiles = await profileService.getProfiles();
+            const validate = await paginationSchema.validateAsync(req.query);
+            const getProfiles = await profileService.getProfiles(validate);
             console.log("getProfiles", getProfiles);
 
             if (getProfiles.error) {

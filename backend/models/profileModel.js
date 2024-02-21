@@ -2,7 +2,6 @@
 const { models } = require('./index');
 module.exports = {
     createProfile: async (body) => {
-        console.log("check1 Model")
         try {
             const createProfile = await models.Profile.create({
                 ...body
@@ -17,9 +16,12 @@ module.exports = {
             }
         }
     },
-    getProfiles: async () => {
+    getProfiles: async (offset, query) => {
         try {
-            const getProfiles = await models.Profile.findAll();
+            const getProfiles = await models.Profile.findAll({
+                offset: offset,
+                limit: query.limit,
+            });
             return {
                 response: getProfiles
             };
