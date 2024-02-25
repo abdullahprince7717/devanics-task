@@ -35,7 +35,8 @@ module.exports = {
             }
             else {
                 return {
-                    response: getProfiles.response
+                    response: getProfiles.response,
+                    count: getProfiles.count
                 };
 
             }

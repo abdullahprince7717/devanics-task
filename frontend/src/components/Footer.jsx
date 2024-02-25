@@ -27,16 +27,25 @@ function footer() {
                     <a href="" className="">Information for candidates</a>
                 </div>
             </div>
-            <div className="w-80 flex flex-col space-y-2">
+            <div className="w-72 flex flex-col space-y-2">
                 <div className='w-full flex justify-between px-5 pb-3 text-[#06BF97]'>
-                    <FaInstagram size={28} />
-                    <FaTwitter size={28} />
-                    <FaFacebook size={28} />
-                    <FaTwitter size={28} />
-                </div>                <p>Subscribe our Newsletters to keep updated yourself with Current Revolution in Fitness Sector.</p>
+                    <div className="rounded-full w-10 bg-white p-1">
+                        <FaInstagram size={28} />
+                    </div>
+                    <div className="rounded-full w-10 bg-white p-1">
+                        <FaTwitter size={28} />
+                    </div>
+                    <div className="rounded-full w-10 bg-white p-1">
+                        <FaFacebook size={28} />
+                    </div>
+                    <div className="rounded-full w-10 bg-white p-1">
+                        <FaTwitter size={28} />
+                    </div>
+                </div>
+                <p>Subscribe our Newsletters to keep updated yourself with Current Revolution in Fitness Sector.</p>
                 <div className='w-5/6 border-2 flex'>
                     <input type="text" placeholder="Email" className="p-5 h-2 bg-white text-black " />
-                    <button className="bg-[#06BF97] text-white w-4/5 flex justify-center items-center "><IoIosSend size={24} /></button>
+                    <button className="bg-[#06BF97] text-white w-4/5 flex justify-center items-center px-2 py-1"><IoIosSend size={24} /></button>
                 </div>
             </div>
 

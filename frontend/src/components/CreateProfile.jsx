@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
 import axios from 'axios';
-import img from "../assets/public/person.jpeg"
+import { CiImageOn } from "react-icons/ci";
 
 
 function CreateProfile(props) {
@@ -74,7 +74,7 @@ function CreateProfile(props) {
         const updatedProfile = { ...profileInfo, profileId: props?.profileInfo?.profileId }
         await axios.post('http://localhost:3000/profile/updateprofile', updatedProfile)
             .then((res) => {
-                alert(res?.data?.error?.details[0]?.message)
+                alert("updated!")
                 setProfileInfo({
                     profileId: "",
                     companyName: "",
@@ -112,8 +112,8 @@ function CreateProfile(props) {
                         <input value={profileInfo.companyLogo} onChange={handleImageChange} className="w-96 text-sm #9B9B9B border border-gray-300 rounded-md cursor-pointer placeholder-[#9B9B9B] focus:outline-none p-[10px] m-1 shadow-sm mb-6" type="file" />
                         <input value={profileInfo.companyName} onChange={(e) => handleInputChange('companyName', e.target.value)} className="w-96 text-sm #9B9B9B border border-gray-300 rounded-md  placeholder-[#9B9B9B] focus:outline-none p-3 m-1 shadow-sm mb-6" placeholder='Company Name' />
                     </div>
-                    <div className='flex justify-center max-w-[16%] max-h-36 mr-28 border-2 border-slate-100  rounded-full '>
-                        {imageUrl.length > 0 ? <img src={imageUrl} className='rounded-full bg-black' /> : <img src={img} className='rounded-full  bg-black' />}
+                    <div className='flex justify-center items-center max-w-[16%] max-h-36 min-w-[16%] min-h-36 mr-28 border-2 border-slate-100  rounded-full '>
+                        {imageUrl.length > 0 ? <img src={imageUrl} className='rounded-full bg-black' /> : <CiImageOn size={40} className='' />}
                     </div>
                 </div>
                 <div className='flex justify-between'>

@@ -85,7 +85,8 @@ module.exports = {
             }
             else {
                 res.send({
-                    response: getProfiles.response
+                    response: getProfiles.response,
+                    count: getProfiles.count
                 });
             }
 

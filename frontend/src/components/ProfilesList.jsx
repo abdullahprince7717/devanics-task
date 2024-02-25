@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 import { IoArchiveOutline } from "react-icons/io5";
-import { MdDeleteOutline, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { MdDeleteOutline, MdKeyboardArrowLeft, MdKeyboardArrowRight, MdOutlineUnarchive } from "react-icons/md";
+import { useSelector, useDispatch } from 'react-redux';
+import { setInitialProfiles, archiveProfile, unArchiveProfile } from '../redux/profileActions';
 import { FaRegEdit } from "react-icons/fa";
 import axios from 'axios';
 
@@ -11,7 +13,15 @@ function ProfilesList(props) {
     const [profiles, setProfiles] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageLimit] = useState(10);
-    const [totalPages] = useState(2);
+    const [totalPages, setTotalPages] = useState(0);
+
+    const dispatch = useDispatch();
+    const activeProfiles = useSelector(state => {
+        return state.activeProfiles
+    });
+    const archiveProfiles = useSelector(state => {
+        return state.archiveProfiles
+    });
 
     const changeTab = (currentTab) => {
         setIsTab(currentTab)
@@ -26,7 +36,8 @@ function ProfilesList(props) {
                     isArchived: false,
                 }));
                 setProfiles([...profilesWithIsArchived]);
-
+                setTotalPages(Math.ceil(res.data.count / pageLimit));
+                // dispatch(setInitialProfiles(profilesWithIsArchived));
             })
             .catch((err) => {
                 console.log(err)
@@ -46,6 +57,7 @@ function ProfilesList(props) {
 
     const setArchive = (profileId) => {
         const profileIndex = profiles.findIndex((profile) => profile.profileId === profileId);
+        console.log("activeProfiles", activeProfiles)
 
         if (profileIndex !== -1) {
             const updatedProfiles = [...profiles];
@@ -54,6 +66,8 @@ function ProfilesList(props) {
                 ...updatedProfiles[profileIndex],
                 isArchived: true,
             };
+            // dispatch(unArchiveProfile(updatedProfiles));
+            // dispatch(archiveProfile(updatedProfiles));
             setProfiles(updatedProfiles);
         }
     };
@@ -68,6 +82,8 @@ function ProfilesList(props) {
                 ...updatedProfiles[profileIndex],
                 isArchived: false,
             };
+            // dispatch(unArchiveProfile(updatedProfiles));
+            // dispatch(activeProfiles(updatedProfiles));
             setProfiles(updatedProfiles);
         }
     };
@@ -101,7 +117,7 @@ function ProfilesList(props) {
                     </li>
                 </ul>
 
-                <button onClick={() => { props?.changeHandler('My Profile', {}) }} className="text-white text-xs font-semibold rounded-sm py-1 px-14 mr-7 mb-2 mt-1 bg-[#06BF97]">
+                <button onClick={() => { props?.changeHandler('My Profile') }} className="text-white text-xs font-semibold rounded-sm py-1 px-14 mr-7 mb-2 mt-1 bg-[#06BF97]">
                     Create Profile
                 </button>
             </div>
@@ -210,9 +226,9 @@ function ProfilesList(props) {
                                         <td className="px-6 py-4 flex">
                                             <a
                                                 onClick={() => { setUnArchive(profile?.profileId) }}
-                                                className="text-2xl text-[#06BF97]  hover:underline"
+                                                className="text-2xl text-[#06BF97]  hover:underline "
                                             >
-                                                <IoArchiveOutline />
+                                                <MdOutlineUnarchive />
                                             </a>
                                             <a
                                                 onClick={() => { deleteProfile(profile?.profileId) }}

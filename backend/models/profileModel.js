@@ -22,8 +22,11 @@ module.exports = {
                 offset: offset,
                 limit: query.limit,
             });
+
+            const count = await models.Profile.count()
             return {
-                response: getProfiles
+                response: getProfiles,
+                count: count
             };
         }
         catch (error) {
