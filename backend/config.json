@@ -1,0 +1,11 @@
+{
+    "db": {
+        "database": "devanics",
+        "host": "localhost",
+        "port": 5432,
+        "username": "postgres",
+        "password": "12345678",
+        "logging": false,
+        "dialect": "postgres"
+    }
+}
